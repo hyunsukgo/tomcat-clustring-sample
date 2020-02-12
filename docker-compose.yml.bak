@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+    tomcat1: &was
+        container_name: was1
+        environment:
+            - JAVA_OPTS=-Dspring.profiles.active=docker -Dfile.encoding=euc-kr
+        build: 
+            context: .
+            args:
+                conf: tomcat1/conf
+                lib: tomcat1/lib
+                warpath: tomcat1/webapps/*.war
+            dockerfile: ./DockerfileTomcat
+        volumes:
+            - ./tomcat1/logs/:/usr/local/tomcat/logs/
+    tomcat2:
+        <<: *was
+        container_name: was2
+        environment:
+            - JAVA_OPTS=-Dspring.profiles.active=docker -Dfile.encoding=euc-kr
+        build:
+            context: .
+            args:
+                conf: tomcat2/conf
+                lib: tomcat2/lib
+                warpath: tomcat2/webapps/*.war
+            dockerfile: ./DockerfileTomcat
+        volumes:
+            - ./tomcat2/logs/:/usr/local/tomcat/logs/
+    nginx:
+        container_name: web
+        build:
+            context: .
+            dockerfile: ./DockerfileNginx
+            args:
+                conf: nginx/conf
+        ports: 
+            - "8080:8080"
+        volumes:
+            - ./nginx/logs/:/var/log/nginx/
+        links:
+          - tomcat1:tomcat1
+          - tomcat2:tomcat2

@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+    db:
+        image: redis:3.0.3
+        hostname: redis
+        ports:
+            - "6379:6379"
     tomcat1: &was
         environment:
             - JAVA_OPTS=-Dspring.profiles.active=docker -Dfile.encoding=euc-kr
@@ -8,17 +13,21 @@ services:
             context: .
             args:
                 conf: tomcat1/conf
-                warpath: tomcat1/webapps/ROOT.war
+                lib: tomcat1/lib
+                warpath: tomcat1/webapps/*.war
             dockerfile: ./DockerfileTomcat
         volumes:
             - ./tomcat1/logs/:/usr/local/tomcat/logs/
     tomcat2:
         <<: *was
-        build: 
+        environment:
+            - JAVA_OPTS=-Dspring.profiles.active=docker -Dfile.encoding=euc-kr
+        build:
             context: .
             args:
                 conf: tomcat2/conf
-                warpath: tomcat2/webapps/ROOT.war
+                lib: tomcat2/lib
+                warpath: tomcat2/webapps/*.war
             dockerfile: ./DockerfileTomcat
         volumes:
             - ./tomcat2/logs/:/usr/local/tomcat/logs/
@@ -30,3 +39,5 @@ services:
                 conf: nginx/conf
         ports: 
             - "8080:8080"
+        volumes:
+            - ./nginx/logs/:/var/log/nginx/

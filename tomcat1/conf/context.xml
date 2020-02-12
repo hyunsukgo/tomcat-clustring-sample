@@ -1,0 +1,3 @@
+<Manager className="org.redisson.tomcat.RedissonSessionManager"
+         configPath="${catalina.base}/conf/redisson.conf"
+         readMode="REDIS" updateMode="DEFAULT" broadcastSessionEvents="false"/>
