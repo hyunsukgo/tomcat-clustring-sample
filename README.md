@@ -16,6 +16,7 @@ docker-compose를 이용하여 클러스터링 테스트 환경을 구축하는 
 - docker-compose 
 - docker
 
+
 ## Environment
 
 ### Setup AS-IS ( Tomcat session replication )
@@ -57,6 +58,22 @@ tomcat1/conf/context.xml, tomcat2/conf/context.xml 아래와 같이 주석을 �
              readMode="REDIS" updateMode="DEFAULT" broadcastSessionEvents="false"/>
 
 ```
+
+## Web Application 빌드
+배포할 웹 어플리케이션을 빌드합니다. 
+```$xslt
+$ git clone https://github.com/jingood2/SampleWebApp.git
+
+$ cd SampleWebApp
+
+# 웹앱 빌드 ( linux )
+./mvnw clean package
+
+# 웹앱 윈도우 빌드( Windows)
+mvnw.cmd clean install
+
+```
+빌드된 파일 '/target/SampleWebApp.war'를 tomcat1/webapps, tomcat2/webapps 디렉토리 밑에 복사합니다. ( 없으면 디렉토리를 생성합니다. )
 
 빌드
 ---
