@@ -189,7 +189,7 @@ fd0116beaa8b        redis:4.0.9                                             "doc
 
 확인
 ---
-![webapp](https://github.com/jingood2/docker-compose-nginx-tomcat-clustering-sample-/tree/master/img/3.png)
+![webapp](https://github.com/jingood2/docker-compose-nginx-tomcat-clustering-sample-/blob/master/img/3.png?raw=true)
 
 중지
 ----
