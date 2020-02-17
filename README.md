@@ -40,6 +40,8 @@ tomcat1/conf/context.xml, tomcat2/conf/context.xml 아래와 같이 주석 처�
  ``` 
 
 ### Setup Redis Session Manager ( Use Redis for session manager )
+session store로 redis를 사용하기 위해 https://github.com/redisson/redisson/tree/master/redisson-tomcat 맨밑에 두개의 파일(redisson-all-3.12.1.jar, redisson-tomcat-8-3.12.1.jar)을 다운받고, tomcat1/lib, tomcat2/lib 에 복사합니다. 
+
 tomcat1/conf/server.xml, tomcat2/conf/server.xml 내용에서 아래 부분을 아래와 같이 주석처리합니다. 
 ```$xslt
 <!-- server.xml -->
